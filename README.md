@@ -48,7 +48,7 @@ bool  HMContains(const HashMap* hm, uint64_t key);
 HMSize(hm)   // uint32_t — current entry count
 HMEmpty(hm)  // bool     — true if count == 0
 ```
- 
+
 `HMFind` returns a pointer into the internal value array, or `NULL` if not found. The pointer is invalidated by any insertion or rehash.
  
 ### Mutation
@@ -61,7 +61,13 @@ bool  HMErase(HashMap* hm, uint64_t key);
  
 `HMInsert` does nothing and returns `NULL` if the key already exists. `HMInsertOrAssign` overwrites an existing value and returns a pointer to it. Both return a pointer to the stored value on success. `HMErase` returns `false` if the key was not found.
  
- 
+### Iterate on dense hashmap
+iterating is super fast
+'''c
+Value* values = (Value*)hashmap.values;
+uint64_t keys = hashmap.keys;
+// loop with hashmap.count
+'''
 ### Type-safe wrappers
  
 `HM_DEFINE_TYPE(NAME, TYPE)` generates a set of inline functions for a concrete value type, eliminating void-pointer casts at call sites:
