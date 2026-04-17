@@ -62,10 +62,10 @@ bool  HMErase(HashMap* hm, uint64_t key);
 `HMInsert` does nothing and returns `NULL` if the key already exists. `HMInsertOrAssign` overwrites an existing value and returns a pointer to it. Both return a pointer to the stored value on success. `HMErase` returns `false` if the key was not found.
  
 ### Iterate on dense hashmap
-iterating is super fast
+iterating is super fast, because its dense
 ```c
 Value* values = (Value*)hashmap.values;
-uint64_t keys = hashmap.keys;
+uint64_t* keys = hashmap.keys;
 // loop with hashmap.count
 ```
 ### Type-safe wrappers
