@@ -36,6 +36,7 @@
  * HMFree, HMMemset, and HMMemcpy before including the header.
  * ----------------------------------------------------------------------------
  */
+
 #ifndef HM_INCLUDE_HASHMAP
 #define HM_INCLUDE_HASHMAP
 
@@ -105,35 +106,35 @@ static inline TYPE* HMFind##NAME(const HashMap* hm, uint64_t key)               
 {                                                                               \
     return (TYPE*)HMFind(hm, key);                                              \
 }                                                                               \
-    static inline TYPE HMFindVal##NAME(const HashMap* hm, uint64_t key)             \
+static inline TYPE HMFindVal##NAME(const HashMap* hm, uint64_t key)             \
 {                                                                               \
     TYPE* fnd = (TYPE*)HMFind(hm, key);                                         \
-        if (fnd) return *fnd;                                                       \
-            return (TYPE)0;                                                             \
+    if (fnd) return *fnd;                                                       \
+    return (TYPE)0;                                                             \
 }                                                                               \
-    static inline bool HMTryGet##NAME(const HashMap* hm, uint64_t key, TYPE* out)   \
+static inline bool HMTryGet##NAME(const HashMap* hm, uint64_t key, TYPE* out)   \
 {                                                                               \
     TYPE* fnd = (TYPE*)HMFind(hm, key);                                         \
-        if (!fnd) return false;                                                     \
-            *out = *fnd;                                                                \
-                return true;                                                                \
+    if (!fnd) return false;                                                     \
+    *out = *fnd;                                                                \
+    return true;                                                                \
 }                                                                               \
-    static inline TYPE* HMInsert##NAME(HashMap* hm, uint64_t key, TYPE value)       \
+static inline TYPE* HMInsert##NAME(HashMap* hm, uint64_t key, TYPE value)       \
 {                                                                               \
     return (TYPE*)HMInsert(hm, key, &value);                                    \
 }                                                                               \
-    static inline TYPE* HMInsertOrAssign##NAME(HashMap* hm, uint64_t key, TYPE value)\
+static inline TYPE* HMInsertOrAssign##NAME(HashMap* hm, uint64_t key, TYPE value)\
 {                                                                               \
     return (TYPE*)HMInsertOrAssign(hm, key, &value);                            \
 }
 
 HM_DEFINE_TYPE(S32, int32_t)
-    HM_DEFINE_TYPE(s64, int64_t)
-    HM_DEFINE_TYPE(U32, uint32_t)
-    HM_DEFINE_TYPE(U64, uint64_t)
+HM_DEFINE_TYPE(s64, int64_t)
+HM_DEFINE_TYPE(U32, uint32_t)
+HM_DEFINE_TYPE(U64, uint64_t)
 
-    #ifdef HM_HASHMAP_IMPLEMENTATION
-    static inline uint64_t HMMurmurHash(uint64_t x) {
+#ifdef HM_HASHMAP_IMPLEMENTATION
+static inline uint64_t HMMurmurHash(uint64_t x) {
 	x ^= x >> 30ULL; x *= 0xbf58476d1ce4e5b9ULL;
 	x ^= x >> 27ULL; x *= 0x94d049bb133111ebULL;
 	return x ^ (x >> 31ULL);
