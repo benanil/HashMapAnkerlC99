@@ -42,6 +42,7 @@ void    HMReserve(HashMap* hm, uint32_t capacity);
  
 ```c
 void* HMFind(const HashMap* hm, uint64_t key);
+bool  HMTryGetTYPE(const HashMap* hm, uint64_t key, TYPE* out);
 bool  HMContains(const HashMap* hm, uint64_t key);
 ```
  
