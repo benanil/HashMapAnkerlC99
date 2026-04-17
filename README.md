@@ -89,7 +89,8 @@ Generated functions for `HM_DEFINE_TYPE(NAME, TYPE)`:
 ## Example
  
 ```c
-#include "hashmap.h"
+#define HM_HASHMAP_IMPLEMENTATION // only on one source file like stb
+#include "HashMap.h"
  
 HM_DEFINE_TYPE(Float, float)
  
