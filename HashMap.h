@@ -24,7 +24,7 @@
  * Example:
  * typedef struct { float x, y; } Vec2;
  * HM_DEFINE_TYPE(Vec2, Vec2)
- *
+ * HM_DEFINE_TYPE(U64, uint64_t) // nice to have
  * This generates:
  * - Vec2* HMFindVec2(const HashMap* hm, uint64_t key);
  * - Vec2  HMFindValVec2(const HashMap* hm, uint64_t key);
@@ -127,11 +127,6 @@ static inline TYPE* HMInsertOrAssign##NAME(HashMap* hm, uint64_t key, TYPE value
 {                                                                               \
     return (TYPE*)HMInsertOrAssign(hm, key, &value);                            \
 }
-
-HM_DEFINE_TYPE(S32, int32_t)
-HM_DEFINE_TYPE(s64, int64_t)
-HM_DEFINE_TYPE(U32, uint32_t)
-HM_DEFINE_TYPE(U64, uint64_t)
 
 #ifdef HM_HASHMAP_IMPLEMENTATION
 static inline uint64_t HMMurmurHash(uint64_t x) {
