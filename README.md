@@ -63,11 +63,11 @@ bool  HMErase(HashMap* hm, uint64_t key);
  
 ### Iterate on dense hashmap
 iterating is super fast
-'''c
+```c
 Value* values = (Value*)hashmap.values;
 uint64_t keys = hashmap.keys;
 // loop with hashmap.count
-'''
+```
 ### Type-safe wrappers
  
 `HM_DEFINE_TYPE(NAME, TYPE)` generates a set of inline functions for a concrete value type, eliminating void-pointer casts at call sites:
