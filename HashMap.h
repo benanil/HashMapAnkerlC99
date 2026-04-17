@@ -106,12 +106,6 @@ static inline TYPE* HMFind##NAME(const HashMap* hm, uint64_t key)               
 {                                                                               \
     return (TYPE*)HMFind(hm, key);                                              \
 }                                                                               \
-static inline TYPE HMFindVal##NAME(const HashMap* hm, uint64_t key)             \
-{                                                                               \
-    TYPE* fnd = (TYPE*)HMFind(hm, key);                                         \
-    if (fnd) return *fnd;                                                       \
-    return (TYPE)0;                                                             \
-}                                                                               \
 static inline bool HMTryGet##NAME(const HashMap* hm, uint64_t key, TYPE* out)   \
 {                                                                               \
     TYPE* fnd = (TYPE*)HMFind(hm, key);                                         \
