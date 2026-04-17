@@ -44,6 +44,9 @@ void    HMReserve(HashMap* hm, uint32_t capacity);
 void* HMFind(const HashMap* hm, uint64_t key);
 bool  HMTryGetTYPE(const HashMap* hm, uint64_t key, TYPE* out);
 bool  HMContains(const HashMap* hm, uint64_t key);
+// macros
+HMSize(hm)   // uint32_t — current entry count
+HMEmpty(hm)  // bool     — true if count == 0
 ```
  
 `HMFind` returns a pointer into the internal value array, or `NULL` if not found. The pointer is invalidated by any insertion or rehash.
@@ -58,12 +61,6 @@ bool  HMErase(HashMap* hm, uint64_t key);
  
 `HMInsert` does nothing and returns `NULL` if the key already exists. `HMInsertOrAssign` overwrites an existing value and returns a pointer to it. Both return a pointer to the stored value on success. `HMErase` returns `false` if the key was not found.
  
-### Macros
- 
-```c
-HMSize(hm)   // uint32_t — current entry count
-HMEmpty(hm)  // bool     — true if count == 0
-```
  
 ### Type-safe wrappers
  
@@ -74,7 +71,7 @@ HM_DEFINE_TYPE(Int, int)
  
 HashMap hm = HMCreate(0, sizeof(int));
 HMInsertInt(&hm, 42, 7);
-int val = HMFindValInt(&hm, 42);   // returns 0 if not found
+int* val = HMFindInt(&hm, 42);   // returns NULL if not found
 int out;
 bool ok = HMTryGetInt(&hm, 42, &out);
 HMInsertOrAssignInt(&hm, 42, 99);
@@ -85,7 +82,6 @@ Generated functions for `HM_DEFINE_TYPE(NAME, TYPE)`:
 | Function | Signature |
 |---|---|
 | `HMFindNAME` | `TYPE* (const HashMap*, uint64_t)` |
-| `HMFindValNAME` | `TYPE (const HashMap*, uint64_t)` — returns zero-value if missing |
 | `HMTryGetNAME` | `bool (const HashMap*, uint64_t, TYPE* out)` |
 | `HMInsertNAME` | `TYPE* (HashMap*, uint64_t, TYPE)` |
 | `HMInsertOrAssignNAME` | `TYPE* (HashMap*, uint64_t, TYPE)` |
