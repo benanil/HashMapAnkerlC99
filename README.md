@@ -5,6 +5,8 @@ A cache-efficient, densely stored hash map in C99
  
 A fast, open-addressing hash map in C using Robin Hood hashing with fingerprint-based early termination. Keys are `uint64_t`, values are arbitrary fixed-size blobs.
 Ankerl's hashmap is performant and heavily benchmarked(better than cpp stl and such), it also has low memory footprint
+
+# Test
 tested with many leetcode problems and custom test code
 
 ## Customization
