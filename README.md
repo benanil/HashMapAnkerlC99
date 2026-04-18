@@ -4,14 +4,9 @@ A cache-efficient, densely stored hash map in C99
 # HashMap
  
 A fast, open-addressing hash map in C using Robin Hood hashing with fingerprint-based early termination. Keys are `uint64_t`, values are arbitrary fixed-size blobs.
- 
-## Design
- 
-- Robin Hood insertion with backward-shift deletion
-- Fingerprint stored in the low 8 bits of `distAndFingerprint` to short-circuit probing
-- Load factor capped at 0.8, capacity always a power of two
-- Values stored in a flat array; buckets hold an index rather than the value directly
-- Maximum capacity: 2^31 entries
+Ankerl's hashmap is performant and heavily benchmarked(better than cpp stl and such), it also has low memory footprint
+tested with many leetcode problems and custom test code
+
 ## Customization
  
 Override allocator and memory primitives before including the header:
