@@ -302,7 +302,50 @@ static void test_stress_insert_erase(void)
     free(keys);
 }
 
-int main1(void)
+
+typedef struct { int id; float score; } Player;
+
+int SparseSetTest() {
+    printf("Starting Two-Array Sparse Set Tests...\n");
+
+    SparseSet ss = SSCreate(10, sizeof(Player));
+
+    Player p1 = {1, 95.5f};
+    Player p2 = {2, 80.0f};
+    Player p2_updated = {2, 99.0f};
+
+    // 1. Test SSInsert (New entry)
+    bool inserted = SSInsert(&ss, 50, &p1);
+    assert(inserted == true);
+    assert(ss.size == 1);
+
+    // 3. Test SSInsertOrAssign
+    SSInsertOrAssign(&ss, 50, &p2_updated); // Should update existing
+    Player* pCheck = (Player*)SSGet(&ss, 50);
+    assert(pCheck->score == 99.0f);
+    assert(ss.size == 1);
+
+    SSInsertOrAssign(&ss, 20, &p2); // Should create new
+    assert(ss.size == 2);
+
+    // 4. Test Removal with Swap
+    // Removing index 50 should move index 20 into the 0th dense slot
+    SSRemove(&ss, 50);
+    assert(ss.size == 1);
+    assert(SSContains(&ss, 50) == false);
+    assert(SSContains(&ss, 20) == true);
+    
+    // Check if back-link survived the swap
+    assert(ss.sparse[20] == 0);
+    assert(ss.dense[0] == 20);
+
+    SSDestroy(&ss);
+    printf("All tests passed! Your Sparse Set is solid.\n");
+
+    return 0;
+}
+
+int HashMapTest(void)
 {
     test_create_destroy();
     test_insert_find_contains();
@@ -316,4 +359,10 @@ int main1(void)
     test_stress_insert_erase();
     printf("All HashMap tests passed.\n");
     return 0;
+}
+int main()
+{
+    HashMapTest();
+	SparseSetTest();
+    return 0;	
 }
