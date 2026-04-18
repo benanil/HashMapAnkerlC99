@@ -46,13 +46,12 @@ void    HMReserve(HashMap* hm, uint32_t capacity);
 `HMCreate` allocates a map sized to hold at least `reserveCount` entries of `valueSize` bytes each. `HMClear` removes all entries but retains allocated memory. `HMReserve` pre-allocates to avoid rehashing on bulk inserts.
  
 ### Queries
- 
+
 ```c
 void* HMFind(const HashMap* hm, uint64_t key);
 bool  HMTryGetTYPE(const HashMap* hm, uint64_t key, TYPE* out);
 bool  HMContains(const HashMap* hm, uint64_t key);
 // macros
-HMSize(hm)   // uint32_t — current entry count
 HMEmpty(hm)  // bool     — true if count == 0
 ```
 
